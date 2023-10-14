@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+
+    <title>To Do App</title>
+  </head>
+  <body>
+    <h1>To Do App</h1>
+    <a href="/todos/?completed=1" class="btn btn-success">Show completed todos</a>
+    <a href="/todos/?completed=0" class="btn btn-warning">Show incompleted todos</a>
+    <a href="/todos/?order=0" class="btn btn-light">Order by oldest</a>
+    <a href="/todos/?order=1" class="btn btn-dark">Order by latest</a>
+    <form method="GET" action="{% url 'todo_index' %}">
+      <input type="text" class="form-control" id="todoSearch" name="todoSearch" required placeholder="Search your todo">
+      <button type="submit" class="btn btn-secondary">Search</button>
+    </form>
+    <form method="POST" action="{% url 'add_todo' %}">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label for="todoInput" class="form-label">Add your To Do</label>
+        <input type="text" class="form-control" id="todoInput" name="todoInput" required/>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <hr />
+    <h1>To Do List</h1>
+    <ul class="list-group">
+      {% for todo in todos %}
+        <li class="list-group-item {% if todo.completed %} list-group-item-success {% else %} list-group-item-danger {% endif %}" style="display: flex; justify-content: space-between;">
+          {{todo.title}}
+          <br>
+          <span class="badge rounded-pill bg-light text-dark">{{todo.created_at}}</span>
+          <div>
+            <form method="GET" action ="{% url 'todo_delete' todo.id %}">
+              <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+            </form>
+            {% if todo.completed == False %}
+            <form method="GET" action ="{% url 'todo_mark' todo.id %}">
+              <button type="submit" class="btn btn-sm btn-warning">Mark as completed</button>
+          </form>
+          {% endif %}
+        </div>
+        </li>  <!--adding class list-group-item, if completed it adds list-group-item-success-->
+      {% endfor %}
+    </ul>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  </body>
+</html>

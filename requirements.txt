@@ -1,0 +1,9 @@
+asgiref
+dj-database-url
+Django
+django-environ
+gunicorn
+packaging
+psycopg2
+sqlparse
+typing-extensions
