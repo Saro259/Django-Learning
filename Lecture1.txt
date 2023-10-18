@@ -1,0 +1,38 @@
+5th Aug, 2023 (Saturday)
+
+https://code.visualstudio.com/
+https://www.postman.com/
+https://dbeaver.io/
+https://git-scm.com/
+https://github.com/
+https://render.com/
+
+commands
+pwd => print working directory
+cd => change directory
+ls => print files and folder inside the directory
+mkdir => make directory is used to create a directory
+clear
+touch is used to create a file
+vim
+cat
+head
+tail
+rm 
+rmdir
+find
+mv
+cp
+
+python -m venv project_env
+. project_env/scripts/activate using git bash
+or 
+source project_env/bin/activate
+
+pip install django
+
+django-admin startproject my_project .
+
+env manage.py my_project/settings.py
+
+python manage.py runserver
